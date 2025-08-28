@@ -152,6 +152,7 @@ def load_mkdocs_config(args, strict=False):
         maybe_set(args, plugin.config, 'alias_type')
         maybe_set(args, plugin.config, 'template', 'redirect_template')
         maybe_set(args, plugin.config, 'deploy_prefix')
+        maybe_set(args, plugin.config, 'top_dir')
         return cfg
     except FileNotFoundError as e:
         if strict:
@@ -161,6 +162,7 @@ def load_mkdocs_config(args, strict=False):
         maybe_set(args, plugin.config, 'alias_type')
         maybe_set(args, plugin.config, 'template', 'redirect_template')
         maybe_set(args, plugin.config, 'deploy_prefix')
+        maybe_set(args, plugin.config, 'top_dir')
         if args.branch is None or args.remote is None:
             raise FileNotFoundError(
                 '{}; pass --config-file or set --remote/--branch explicitly'

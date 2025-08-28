@@ -796,10 +796,9 @@ class TestWalkFiles(unittest.TestCase):
 class TestWalkRealFiles(unittest.TestCase):
     mode = 0o100755 if sys.platform == 'win32' else 0o100644
 
-
     def test_walk(self):
         self.directory = os.path.join(test_data_dir, 'directory')
-        files = sorted(git_utils.walk_real_files(self.directory),
+        files = sorted(git_utils.walk_real_files(self.directory, self.directory),
                        key=lambda x: x.path)
 
         path = os.path.join(self.directory, 'file.txt')
@@ -810,7 +809,7 @@ class TestWalkRealFiles(unittest.TestCase):
 
     def test_walk_ignore(self):
         self.directory = os.path.join(test_data_dir, 'directory_ignored')
-        files = sorted(git_utils.walk_real_files(self.directory),
+        files = sorted(git_utils.walk_real_files(self.directory, self.directory),
                        key=lambda x: x.path)
         print(files)
         path = os.path.join(self.directory, 'file.txt')
@@ -819,5 +818,5 @@ class TestWalkRealFiles(unittest.TestCase):
         path2 = os.path.join(self.directory, '.gitignore')
         with open(path2, 'rb') as f:
             data2 = f.read()
-        self.assertEqual(files, [git_utils.FileInfo(path2, data2, self.mode),git_utils.FileInfo(path, data, self.mode)])
-
+        self.assertEqual(files,
+                         [git_utils.FileInfo(path2, data2, self.mode), git_utils.FileInfo(path, data, self.mode)])

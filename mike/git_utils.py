@@ -317,8 +317,8 @@ class Commit:
         if self._pipe.wait() != 0:
             raise GitCommitError(self._stderr.decode('utf-8'))
 
-        if ( not self._allow_empty
-             and is_commit_empty(get_latest_commit(self._branch)) ):
+        if (not self._allow_empty
+                and is_commit_empty(get_latest_commit(self._branch))):
             delete_latest_commit(self._branch)
             raise GitEmptyCommit()
 
@@ -408,8 +408,9 @@ def walk_files(branch, path=''):
                        .format(branch=branch, path=gpath))
 
 
-def walk_real_files(srcdir):
-    gitignore = parse_gitignore(os.path.join(srcdir, '.gitignore')) if os.path.isfile(os.path.join(srcdir, '.gitignore')) else None
+def walk_real_files(topdir, srcdir):
+    gitignore = parse_gitignore(os.path.join(topdir, '.gitignore')) if os.path.isfile(
+        os.path.join(topdir, '.gitignore')) else None
     for path, dirs, filenames in os.walk(srcdir):
         if gitignore is not None:
             if gitignore(path) is True:
