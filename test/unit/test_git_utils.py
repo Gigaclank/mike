@@ -811,12 +811,7 @@ class TestWalkRealFiles(unittest.TestCase):
         self.directory = os.path.join(test_data_dir, 'directory_ignored')
         files = sorted(git_utils.walk_real_files(self.directory, self.directory),
                        key=lambda x: x.path)
-        print(files)
-        path = os.path.join(self.directory, 'file.txt')
+        path = os.path.join(self.directory, '.gitignore')
         with open(path, 'rb') as f:
             data = f.read()
-        path2 = os.path.join(self.directory, '.gitignore')
-        with open(path2, 'rb') as f:
-            data2 = f.read()
-        self.assertEqual(files,
-                         [git_utils.FileInfo(path2, data2, self.mode), git_utils.FileInfo(path, data, self.mode)])
+        self.assertEqual(files,[git_utils.FileInfo(path, data, self.mode)])
