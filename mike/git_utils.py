@@ -416,15 +416,19 @@ def walk_real_files(srcdir, topdir=os.getcwd()):
     for path, dirs, filenames in os.walk(srcdir):
         if gitignore is not None:
             if gitignore(path) is True:
+                print(f"Ignoring: {path}",file=sys.stderr)
                 continue
         if '.git' in dirs:
             dirs.remove('.git')
         for f in filenames:
+            
             filepath = os.path.join(path, f)
             if gitignore is not None:
                 if gitignore(filepath) is True:
+                    print(f"Ignoring: {path}",file=sys.stderr)
                     continue
             mode = 0o100755 if os.access(filepath, os.X_OK) else 0o100644
             with open(filepath, 'rb') as fd:
                 data = fd.read()
+            
             yield FileInfo(filepath, data, mode)
