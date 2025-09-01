@@ -408,9 +408,9 @@ def walk_files(branch, path=''):
                        .format(branch=branch, path=gpath))
 
 
-def walk_real_files(topdir, srcdir):
-    gitignore = parse_gitignore(os.path.join(topdir, '.gitignore')) if os.path.isfile(
-        os.path.join(topdir, '.gitignore')) else None
+def walk_real_files(srcdir, topdir=os.getcwd()):
+    gitignore = parse_gitignore(os.path.join(topdir,'.gitignore')) if os.path.isfile(
+        os.path.join(topdir,'.gitignore')) else None
     for path, dirs, filenames in os.walk(srcdir):
         if gitignore is not None:
             if gitignore(path) is True:

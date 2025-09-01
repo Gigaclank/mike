@@ -43,8 +43,6 @@ class MikePlugin(BasePlugin):
 
     def on_config(self, config):
         version = os.environ.get(docs_version_var)
-        if 'top_dir' not in config:
-            config['top_dir'] = os.getcwd()
         if version and config.get('site_url'):
             if self.config['canonical_version'] is not None:
                 version = self.config['canonical_version']
