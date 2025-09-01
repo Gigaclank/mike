@@ -414,10 +414,10 @@ def walk_real_files(srcdir, topdir=os.getcwd()):
     if gitignore is not None: 
         print(f"Using Gitignore: {gitignorepath}")
     for path, dirs, filenames in os.walk(srcdir):
-        if gitignore is not None:
-            if gitignore(path) is True:
-                print(f"Ignoring: {path}",file=sys.stderr)
-                continue
+        # if gitignore is not None:
+        #     if gitignore(path) is True:
+        #         print(f"Ignoring: {path}",file=sys.stderr)
+        #         continue
         if '.git' in dirs:
             dirs.remove('.git')
         for f in filenames:
